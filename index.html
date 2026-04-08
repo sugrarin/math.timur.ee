@@ -9,8 +9,11 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Math">
   <meta name="description" content="Тренажёр по математике для устного счёта: сложение, вычитание, умножение и деление.">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="shortcut icon" href="/favicon/favicon.ico">
   <link rel="stylesheet" href="styles.css">
   <title>Math Trainer</title>
 </head>
@@ -131,7 +134,7 @@
           <div class="game-status__meta">
             <p class="game-status__mode" id="game-mode-label">Сложение</p>
             <div class="game-status__side">
-              <p class="game-status__counter" id="progress-count">1 / 12</p>
+              <p class="game-status__counter" id="progress-count">1 / 12</p>
               <button class="icon-button" type="button" id="finish-game-button" aria-label="Закончить раунд">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg>
               </button>
@@ -156,8 +159,13 @@
       <section class="panel panel--result">
         <div class="result-summary">
           <p class="result-summary__eyebrow">Готово</p>
-          <h2 class="result-summary__title">Результат</h2>
-          <p class="result-summary__score" id="result-score">12 / 12</p>
+          <div class="result-summary__title-row">
+            <h2 class="result-summary__title">Результат</h2>
+            <button class="icon-button" type="button" id="result-close-button" aria-label="Вернуться на главную">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg>
+            </button>
+          </div>
+          <p class="result-summary__score" id="result-score">12 / 12</p>
         </div>
 
         <div class="action-stack">

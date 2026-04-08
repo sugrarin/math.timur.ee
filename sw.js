@@ -1,11 +1,16 @@
-const CACHE_NAME = "math-trainer-shell-v1";
+const CACHE_NAME = "math-trainer-shell-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
-  "./manifest.webmanifest",
-  "./icons/app-icon.svg"
+  "./favicon/site.webmanifest",
+  "./favicon/apple-touch-icon.png",
+  "./favicon/favicon-32x32.png",
+  "./favicon/favicon-16x16.png",
+  "./favicon/favicon.ico",
+  "./favicon/android-chrome-192x192.png",
+  "./favicon/android-chrome-512x512.png"
 ];
 
 self.addEventListener("install", (event) => {

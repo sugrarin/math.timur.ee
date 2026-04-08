@@ -5,6 +5,7 @@
   const ROUND_SIZE = 12;
   const REVIEW_ROUND_ID = "review";
   const AUTO_ADVANCE_DELAY = 200;
+  const THIN_SPACE = "\u2009";
   const OPERATION_SYMBOLS = {
     addition: "+",
     subtraction: "−",
@@ -78,6 +79,7 @@
   const replayButton = document.querySelector("#replay-button");
   const confettiCanvas = document.querySelector("#confetti-canvas");
   const finishGameButton = document.querySelector("#finish-game-button");
+  const resultCloseButton = document.querySelector("#result-close-button");
 
   let state = loadState();
   let advanceTimer = 0;
@@ -100,6 +102,7 @@
     reviewButton.addEventListener("click", startReviewRound);
     replayButton.addEventListener("click", replayCurrentMode);
     finishGameButton.addEventListener("click", finishCurrentRound);
+    resultCloseButton.addEventListener("click", returnHome);
     window.addEventListener("beforeunload", persistState);
     document.addEventListener("visibilitychange", persistState);
     window.addEventListener("resize", resizeConfettiCanvas);
@@ -133,6 +136,14 @@
 
   function restoreView() {
     setDifficulty(state.settings.difficulty);
+    state.activeRound = null;
+    persistState();
+    showScreen("home");
+  }
+
+  function returnHome() {
+    clearAdvanceTimer();
+    stopConfetti();
     state.activeRound = null;
     persistState();
     showScreen("home");
@@ -224,7 +235,7 @@
       ? Math.min(round.score + 1, total)
       : Math.min(round.index + 1, total);
     questionText.textContent = task.question;
-    progressCount.textContent = `${currentCount} / ${total}`;
+    progressCount.textContent = `${currentCount}${THIN_SPACE}/${THIN_SPACE}${total}`;
     progressBar.style.width = `${Math.max((currentCount / Math.max(total, 1)) * 100, 8)}%`;
     gameModeLabel.textContent = MODE_LABELS[round.mode] || MODE_LABELS[round.sourceMode];
 
@@ -384,7 +395,7 @@
       return;
     }
 
-    resultScore.textContent = `${session.score} / ${session.total}`;
+    resultScore.textContent = `${session.score}${THIN_SPACE}/${THIN_SPACE}${session.total}`;
     reviewButton.disabled = session.mistakes.length === 0;
     reviewButtonLabel.textContent = session.mistakes.length === 0 ? "Ошибок нет" : "Разобрать ошибки";
 
@@ -479,7 +490,7 @@
   }
 
   function formatTask(operation, left, right, answer, subtitle) {
-    const question = `${left} ${OPERATION_SYMBOLS[operation]} ${right}`;
+    const question = `${left}${THIN_SPACE}${OPERATION_SYMBOLS[operation]}${THIN_SPACE}${right}`;
     const options = shuffle(createOptions(answer));
     return {
       question,

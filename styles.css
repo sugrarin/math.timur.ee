@@ -179,6 +179,7 @@ button {
 
 .panel--soft {
   /* background: var(--bg-strong); */
+  margin-bottom: 20px;
 }
 
 .panel--game,
@@ -253,7 +254,7 @@ button {
   letter-spacing: 0.03em;
 }
 
-.mode-grid {
+.mode-grid, .action-stack {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.8rem;
@@ -280,8 +281,7 @@ button {
   display: grid;
   justify-items: start;
   gap: 0.8rem;
-  min-height: 7.8rem;
-  padding: 1rem 1rem 0.8rem 1rem;
+  padding: 1rem 1rem 1.2rem 1rem;
   text-align: left;
   box-shadow: 0 14px 26px rgba(27, 25, 18, 0.06);
 }
@@ -319,20 +319,14 @@ button {
   display: block;
   width: 100%;
   text-align: left;
-}
-
-.action-stack {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 0.9rem;
+  line-height: 0.9;
 }
 
 .action-button {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  min-height: 4.25rem;
-  padding: 0.9rem 1rem;
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+  padding: 1rem 1rem 1.2rem;
   box-shadow: 0 14px 26px rgba(27, 25, 18, 0.06);
 }
 
@@ -441,8 +435,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 4.5rem;
-  padding: 1rem 1.1rem;
+  padding: 2.5rem 1.1rem;
   text-align: center;
   box-shadow: 0 14px 26px rgba(27, 25, 18, 0.06);
 }
@@ -451,7 +444,7 @@ button {
   width: 100%;
   font-size: 1.3rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.05em;
 }
 
 .answer-button--correct {
@@ -473,12 +466,18 @@ button {
   padding: 0.75rem 0 0.25rem;
 }
 
+.result-summary__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .result-summary__score {
-  margin: 1rem 0 0.4rem;
+  margin: 1rem 0 1.2rem;
   font-family: var(--font-display);
   font-size: clamp(3rem, 15vw, 4.8rem);
   line-height: 0.95;
-  letter-spacing: -0.06em;
 }
 
 .confetti {
