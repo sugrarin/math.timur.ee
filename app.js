@@ -5,10 +5,6 @@
   const ROUND_SIZE = 12;
   const REVIEW_ROUND_ID = "review";
   const AUTO_ADVANCE_DELAY = 200;
-  const ICON_MARKUP = {
-    correct: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 13 4 4L19 7"></path></svg>',
-    wrong: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>'
-  };
   const OPERATION_SYMBOLS = {
     addition: "+",
     subtraction: "−",
@@ -238,10 +234,7 @@
       button.type = "button";
       button.className = "answer-button";
       button.dataset.value = String(option);
-      button.innerHTML = [
-        `<span class="answer-button__value">${option}</span>`,
-        '<span class="answer-button__marker" aria-hidden="true"></span>'
-      ].join("");
+      button.innerHTML = `<span class="answer-button__value">${option}</span>`;
       button.addEventListener("click", () => handleAnswer(option, button));
       answerGrid.appendChild(button);
     });
@@ -289,15 +282,12 @@
   function markAnswers(correctValue, selectedValue) {
     answerGrid.querySelectorAll(".answer-button").forEach((button) => {
       const value = Number(button.dataset.value);
-      const marker = button.querySelector(".answer-button__marker");
       button.classList.add("answer-button--locked");
 
       if (value === correctValue) {
         button.classList.add("answer-button--correct");
-        marker.innerHTML = ICON_MARKUP.correct;
       } else if (value === selectedValue && selectedValue !== correctValue) {
         button.classList.add("answer-button--wrong");
-        marker.innerHTML = ICON_MARKUP.wrong;
       }
     });
   }
@@ -408,7 +398,11 @@
   function showScreen(screenId) {
     Object.entries(screens).forEach(([id, screen]) => {
       screen.classList.toggle("screen--active", id === screenId);
+      if (id === screenId) {
+        screen.scrollTop = 0;
+      }
     });
+    window.scrollTo(0, 0);
   }
 
   function generateTask(mode, difficultyId) {
