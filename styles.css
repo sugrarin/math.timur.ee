@@ -1,0 +1,549 @@
+@font-face {
+  font-family: "Martian Grotesk";
+  src: url("./MartianGrotesk-StdRg.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Martian Grotesk";
+  src: url("./MartianGrotesk-sWdBl.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light dark;
+  --font-display: "Martian Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-text: "Martian Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg: #f4f2ea;
+  --bg-elevated: rgba(255, 255, 255, 0.74);
+  --bg-strong: rgba(255, 255, 255, 0.92);
+  --surface-border: rgba(117, 104, 70, 0.12);
+  --surface-shadow: 0 24px 60px rgba(43, 37, 23, 0.12);
+  --text-main: #161515;
+  --text-soft: rgba(22, 21, 21, 0.66);
+  --accent: #1f8a70;
+  --accent-strong: #16745e;
+  --accent-soft: rgba(31, 138, 112, 0.12);
+  --danger: #cc584c;
+  --success: #1f8a70;
+  --warning: #e7b94e;
+  --button-neutral: rgba(255, 255, 255, 0.82);
+  --button-neutral-border: rgba(53, 47, 36, 0.1);
+  --progress-track: rgba(22, 21, 21, 0.08);
+  --glow-one: rgba(249, 214, 160, 0.6);
+  --glow-two: rgba(167, 225, 204, 0.45);
+  --tab-background: rgba(22, 21, 21, 0.04);
+  --tab-active: rgb(255, 255, 255);
+  --answer-button-marker: rgba(0, 0, 0, 0.04);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+  --radius-sm: 14px;
+  --transition: 180ms ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111318;
+    --bg-elevated: rgba(24, 27, 35, 0.76);
+    --bg-strong: rgba(22, 25, 32, 0.92);
+    --surface-border: rgba(255, 255, 255, 0.08);
+    --surface-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+    --text-main: #f2efe8;
+    --text-soft: rgba(242, 239, 232, 0.68);
+    --accent: #56c0a1;
+    --accent-strong: #77d5b8;
+    --accent-soft: rgba(86, 192, 161, 0.16);
+    --button-neutral: rgba(33, 36, 44, 0.92);
+    --button-neutral-border: rgba(255, 255, 255, 0.08);
+    --progress-track: rgba(255, 255, 255, 0.1);
+    --glow-one: rgba(158, 115, 56, 0.28);
+    --glow-two: rgba(47, 114, 96, 0.28);
+    --tab-background: rgba(255, 255, 255, 0.04);
+    --tab-active: rgba(255, 255, 255, 0.08);
+    --answer-button-marker: #1113187b;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  background: var(--bg);
+  color: var(--text-main);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.page {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page__defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.app {
+  position: relative;
+  width: min(100%, 34rem);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: calc(1.2rem + var(--safe-top)) 1rem calc(1.4rem + var(--safe-bottom));
+}
+
+.screen {
+  display: none;
+  animation: screen-fade 220ms ease;
+}
+
+.screen--active {
+  display: block;
+}
+
+.hero {
+  padding: 1rem 0 1.4rem;
+}
+
+.hero__eyebrow,
+.result-summary__eyebrow,
+.game-status__mode,
+.problem-card__subtitle {
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.hero__title,
+.result-summary__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1.1;
+  /* letter-spacing: -0.01em; */
+}
+
+.panel {
+  position: relative;
+  margin-bottom: 1rem;
+  /* padding: 1.1rem; */
+  /* background: var(--bg-elevated); */
+  /* border: 1px solid var(--surface-border); */
+  /* border-radius: var(--radius-xl); */
+  /* box-shadow: var(--surface-shadow); */
+  /* backdrop-filter: blur(18px); */
+}
+
+.panel--soft {
+  /* background: var(--bg-strong); */
+}
+
+.panel--game,
+.panel--result {
+  min-height: calc(100vh - 2.6rem - var(--safe-top) - var(--safe-bottom));
+}
+
+.panel--game {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.panel__header--tight {
+  margin-top: 1.25rem;
+}
+
+.panel__title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.panel__note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.difficulty-picker {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  padding: 0.25rem;
+  background: var(--tab-background);
+  border-radius: calc(var(--radius-lg) + 0.25rem);
+}
+
+.difficulty-picker__option {
+  display: grid;
+  place-items: center;
+  gap: 0.25rem;
+  min-height: 4.4rem;
+  padding: 0.6rem 0.35rem;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: var(--text-soft);
+  transition: transform var(--transition), background var(--transition), color var(--transition);
+}
+
+.difficulty-picker__option--active {
+  background: var(--tab-active);
+  color: var(--text-main);
+  box-shadow: inset 0 0 0 1px var(--button-neutral-border);
+}
+
+.difficulty-picker__emoji {
+  font-size: 1.25rem;
+}
+
+.difficulty-picker__label {
+  font-size: 0.8rem;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.mode-card,
+.action-button,
+.answer-button {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--button-neutral-border);
+  border-radius: var(--radius-lg);
+  background: var(--button-neutral);
+  color: var(--text-main);
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition),
+    color var(--transition);
+}
+
+.mode-card {
+  display: grid;
+  justify-items: start;
+  gap: 0.8rem;
+  min-height: 7.8rem;
+  padding: 1rem;
+  box-shadow: 0 14px 26px rgba(27, 25, 18, 0.06);
+}
+
+.mode-card__icon,
+.action-button__icon {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.mode-card__icon svg,
+.action-button__icon svg,
+.answer-button__marker svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mode-card__title,
+.action-button__label {
+  font-size: 0.8rem;
+  font-weight: normal;
+  letter-spacing: 0.03em;
+}
+
+.action-stack {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 4.25rem;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 14px 26px rgba(27, 25, 18, 0.06);
+}
+
+.action-button--accent {
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border-color: transparent;
+  color: #fff;
+}
+
+.action-button--accent .action-button__icon {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.action-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.game-status {
+  margin-bottom: 1.6rem;
+}
+
+.game-status__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+
+.game-status__side {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.game-status__counter {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid var(--button-neutral-border);
+  border-radius: 999px;
+  background: var(--button-neutral);
+  color: var(--text-soft);
+  flex-shrink: 0;
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    background var(--transition),
+    color var(--transition);
+}
+
+.icon-button svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.progress {
+  height: 0.85rem;
+  overflow: hidden;
+  background: var(--progress-track);
+  border-radius: 999px;
+}
+
+.progress__bar {
+  height: 100%;
+  width: 8.333%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+  transition: width 220ms ease;
+}
+
+.problem-card {
+  padding: 1rem 0 1.2rem;
+}
+
+.problem-card__question {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 10vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+.answer-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.5rem;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  box-shadow: 0 14px 26px rgba(27, 25, 18, 0.06);
+}
+
+.answer-button__value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.answer-button__marker {
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 999px;
+  background: var(--answer-button-marker);
+  color: transparent;
+  flex-shrink: 0;
+}
+
+.answer-button--correct {
+  background: rgba(31, 138, 112, 0.18);
+  border-color: rgba(31, 138, 112, 0.5);
+  color: var(--text-main);
+}
+
+.answer-button--correct .answer-button__marker {
+  background: rgba(31, 138, 112, 0.2);
+  color: var(--success);
+}
+
+.answer-button--wrong {
+  background: rgba(204, 88, 76, 0.16);
+  border-color: rgba(204, 88, 76, 0.45);
+}
+
+.answer-button--wrong .answer-button__marker {
+  background: rgba(204, 88, 76, 0.16);
+  color: var(--danger);
+}
+
+.answer-button--locked {
+  pointer-events: none;
+}
+
+.result-summary {
+  padding: 0.75rem 0 0.25rem;
+}
+
+.result-summary__score {
+  margin: 1rem 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 15vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mode-card:active,
+.action-button:active,
+.icon-button:active,
+.answer-button:active,
+.difficulty-picker__option:active {
+  transform: scale(0.985);
+}
+
+.mode-card:focus-visible,
+.action-button:focus-visible,
+.icon-button:focus-visible,
+.answer-button:focus-visible,
+.difficulty-picker__option:focus-visible {
+  outline: 3px solid rgba(31, 138, 112, 0.28);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .mode-card:hover,
+  .action-button:hover,
+  .icon-button:hover,
+  .answer-button:hover,
+  .difficulty-picker__option:hover {
+    transform: translateY(-1px);
+  }
+}
+
+@media (min-width: 640px) {
+  .app {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes screen-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

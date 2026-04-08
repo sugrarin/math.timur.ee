@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f2ea" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111318" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Math">
+  <meta name="description" content="Тренажёр по математике для устного счёта: сложение, вычитание, умножение и деление.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <title>Math Trainer</title>
+</head>
+<body class="page">
+  <svg class="page__defs" aria-hidden="true" focusable="false">
+    <symbol id="icon-plus" viewBox="0 0 24 24">
+      <path d="M5 12h14"></path>
+      <path d="M12 5v14"></path>
+    </symbol>
+    <symbol id="icon-minus" viewBox="0 0 24 24">
+      <path d="M5 12h14"></path>
+    </symbol>
+    <symbol id="icon-multiply" viewBox="0 0 24 24">
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    </symbol>
+    <symbol id="icon-divide" viewBox="0 0 24 24">
+      <circle cx="12" cy="6" r="1"></circle>
+      <line x1="5" x2="19" y1="12" y2="12"></line>
+      <circle cx="12" cy="18" r="1"></circle>
+    </symbol>
+    <symbol id="icon-random" viewBox="0 0 24 24">
+      <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+      <path d="M15 9h.01"></path>
+      <path d="M9 15h.01"></path>
+    </symbol>
+    <symbol id="icon-table" viewBox="0 0 24 24">
+      <path d="M12 3v17a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H3"></path>
+      <path d="m16 16 5 5"></path>
+      <path d="m16 21 5-5"></path>
+    </symbol>
+    <symbol id="icon-repeat" viewBox="0 0 24 24">
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+      <path d="M21 3v5h-5"></path>
+      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+      <path d="M8 16H3v5"></path>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24">
+      <path d="M18 6 6 18"></path>
+      <path d="m6 6 12 12"></path>
+    </symbol>
+    <symbol id="icon-review" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+      <path d="M11 7v4"></path>
+      <path d="M11 15h.01"></path>
+    </symbol>
+  </svg>
+
+  <main class="app">
+    <section class="screen screen--active" id="home-screen" data-screen="home">
+      <div class="hero">
+        <p class="hero__eyebrow">Math trainer</p>
+        <h1 class="hero__title">Тренажёр счёта в уме</h1>
+      </div>
+
+      <section class="panel panel--soft">
+        <div class="panel__header">
+          <h2 class="panel__title">Сложность</h2>
+          <p class="panel__note" id="difficulty-note">Однозначные числа</p>
+        </div>
+        <div class="difficulty-picker" role="tablist" aria-label="Выбор сложности" id="difficulty-picker">
+          <button class="difficulty-picker__option difficulty-picker__option--active" type="button" data-difficulty="easy" role="tab" aria-selected="true">
+            <span class="difficulty-picker__emoji" aria-hidden="true">👶🏻</span>
+            <span class="difficulty-picker__label">Легко</span>
+          </button>
+          <button class="difficulty-picker__option" type="button" data-difficulty="medium" role="tab" aria-selected="false">
+            <span class="difficulty-picker__emoji" aria-hidden="true">👦🏻</span>
+            <span class="difficulty-picker__label">Средне</span>
+          </button>
+          <button class="difficulty-picker__option" type="button" data-difficulty="hard" role="tab" aria-selected="false">
+            <span class="difficulty-picker__emoji" aria-hidden="true">👴🏻</span>
+            <span class="difficulty-picker__label">Сложно</span>
+          </button>
+          <button class="difficulty-picker__option" type="button" data-difficulty="brain" role="tab" aria-selected="false">
+            <span class="difficulty-picker__emoji" aria-hidden="true">🧠</span>
+            <span class="difficulty-picker__label">Экстрим</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__header">
+          <h2 class="panel__title">Режим</h2>
+        </div>
+        <div class="mode-grid" id="home-mode-grid">
+          <button class="mode-card" type="button" data-mode="addition">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-plus"></use></svg></span>
+            <span class="mode-card__title">Сложение</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="subtraction">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-minus"></use></svg></span>
+            <span class="mode-card__title">Вычитание</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="multiplication">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-multiply"></use></svg></span>
+            <span class="mode-card__title">Умножение</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="division">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-divide"></use></svg></span>
+            <span class="mode-card__title">Деление</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="table">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-table"></use></svg></span>
+            <span class="mode-card__title">Таблица умножения</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="mixed">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-random"></use></svg></span>
+            <span class="mode-card__title">Всё подряд</span>
+          </button>
+        </div>
+      </section>
+    </section>
+
+    <section class="screen" id="game-screen" data-screen="game" aria-live="polite">
+      <section class="panel panel--game">
+        <div class="game-status">
+          <div class="game-status__meta">
+            <p class="game-status__mode" id="game-mode-label">Сложение</p>
+            <div class="game-status__side">
+              <p class="game-status__counter" id="progress-count">1 / 12</p>
+              <button class="icon-button" type="button" id="finish-game-button" aria-label="Закончить раунд">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-close"></use></svg>
+              </button>
+            </div>
+          </div>
+          <div class="progress" aria-hidden="true">
+            <div class="progress__bar" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <div class="problem-card">
+          <p class="problem-card__subtitle" id="problem-subtitle">Раунд</p>
+          <h2 class="problem-card__question" id="question-text">2 × 4</h2>
+        </div>
+
+        <div class="answer-grid" id="answer-grid"></div>
+      </section>
+    </section>
+
+    <section class="screen" id="result-screen" data-screen="result">
+      <canvas class="confetti" id="confetti-canvas" aria-hidden="true"></canvas>
+      <section class="panel panel--result">
+        <div class="result-summary">
+          <p class="result-summary__eyebrow">Готово</p>
+          <h2 class="result-summary__title">Результат</h2>
+          <p class="result-summary__score" id="result-score">12 / 12</p>
+        </div>
+
+        <div class="action-stack">
+          <button class="action-button action-button--wide" type="button" id="review-button">
+            <span class="action-button__icon"><svg viewBox="0 0 24 24"><use href="#icon-review"></use></svg></span>
+            <span class="action-button__label">Разобрать ошибки</span>
+          </button>
+          <button class="action-button action-button--wide" type="button" id="replay-button">
+            <span class="action-button__icon"><svg viewBox="0 0 24 24"><use href="#icon-repeat"></use></svg></span>
+            <span class="action-button__label">Еще раунд</span>
+          </button>
+        </div>
+
+        <div class="panel__header panel__header--tight">
+          <h3 class="panel__title">Новый раунд</h3>
+        </div>
+        <div class="mode-grid" id="result-mode-grid">
+          <button class="mode-card" type="button" data-mode="addition">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-plus"></use></svg></span>
+            <span class="mode-card__title">Сложение</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="subtraction">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-minus"></use></svg></span>
+            <span class="mode-card__title">Вычитание</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="multiplication">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-multiply"></use></svg></span>
+            <span class="mode-card__title">Умножение</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="division">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-divide"></use></svg></span>
+            <span class="mode-card__title">Деление</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="table">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-table"></use></svg></span>
+            <span class="mode-card__title">Таблица умножения</span>
+          </button>
+          <button class="mode-card" type="button" data-mode="mixed">
+            <span class="mode-card__icon"><svg viewBox="0 0 24 24"><use href="#icon-random"></use></svg></span>
+            <span class="mode-card__title">Всё подряд</span>
+          </button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
